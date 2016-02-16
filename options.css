@@ -1,4 +1,47 @@
 body {
-    width: 200px;
+    width: 350px;
 }
 
+body, h3, h4 {
+    margin: 0;
+}
+
+.setting {
+    margin-left: 8px;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+#buttons {
+    margin-top: 5px;
+}
+
+#optionsForm {
+    padding: 5px;
+}
+
+#footer {
+    background-color: #EAEAEA;
+    height: 15px;
+    padding: 5px;
+}
+
+#footer a {
+    text-decoration: none;
+}
+
+#header {
+    padding: 5px;
+    text-align: center;
+}
+
+#status {
+    background-color: rgb(255, 242, 153);
+    padding: 2px;
+}

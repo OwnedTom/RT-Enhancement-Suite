@@ -2,15 +2,18 @@ var t = 0; var firstPlay = true;
 
 // Store the current video time and loop
 var setCurrentTime = function(videoID, url) { 
-    if(!firstPlay) { var v = jwplayer(videoID); 
-    var t = v.getPosition(); 
-    if(v.getState() == "playing"){
-        document.dispatchEvent(new CustomEvent('RTES_autoResume_set', {
-            detail: {videoID: videoID, time: t}
-        }));
-        setTimeout(function() { setCurrentTime(videoID,url) }, 1000); 
-    } 
-}  
+    if(!firstPlay) 
+    { 
+        var v = jwplayer(videoID); 
+        var t = v.getPosition(); 
+        if(v.getState() == "playing"){
+            document.dispatchEvent(new CustomEvent('RTES_autoResume_set', {
+                detail: {videoID: videoID, time: t}
+            }));
+            setTimeout(function() { setCurrentTime(videoID,url) }, 1000); 
+        } 
+    }  
+}
 if(typeof jwplayer !== "undefined") { 
     var url = window.location.href; 
     var video = document.getElementsByClassName("jwplayer"); 
@@ -32,5 +35,4 @@ if(typeof jwplayer !== "undefined") {
         }
         setCurrentTime(videoID,url); 
     }); 
-    
 }

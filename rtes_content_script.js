@@ -2,9 +2,13 @@ $(document).ready(function() {
     // Get options from Chrome Profile
     chrome.storage.sync.get({
         autoResume: true,
+        HTML5Player: false,
         enableQueue: true
     }, function(items) {
         // If autoResume and video on page
+        if(items.HTML5Player && $(".jwplayer").length > 0) {
+            addHTML5Player();
+        }
         if(items.autoResume && $(".jwplayer").length > 0) {
             addAutoResumeScript();
         }
@@ -82,3 +86,28 @@ function addAutoResumeScript() {
     (document.head||document.documentElement).appendChild(script);
 }
 
+function addHTML5Player() {
+    var videojs = document.createElement("script");
+    videojs.src = chrome.extension.getURL("videojs/video.min.js");
+    (document.head||document.documentElement).appendChild(videojs);
+    videojs.onload = function() {
+        var vjshls = document.createElement("script");
+        vjshls.src = chrome.extension.getURL("videojs/video-js-hls.min.js");;
+        (document.head||document.documentElement).appendChild(vjshls);
+        vjshls.onload = function() {
+            var script2 = document.createElement("script");
+            script2.src = chrome.extension.getURL("HTML5Player.js");
+            (document.head||document.documentElement).appendChild(script2);
+        }
+    }
+    
+    var link = document.createElement("link");
+    link.href = chrome.extension.getURL("videojs/video-js.min.css");
+    link.type = "text/css";
+    link.rel = "stylesheet";
+    
+    
+    
+    (document.head||document.documentElement).appendChild(link);
+
+}
